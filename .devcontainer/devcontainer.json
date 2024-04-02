@@ -1,0 +1,48 @@
+{
+	"name": "dev",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	"runArgs": [
+		"--gpus=all",
+		"--privileged",
+		"--net=host",
+		"-v", "/tmp/.X11-unix:/tmp/.X11-unix",
+		"-v", "/dev/video0:/dev/video0",
+		"-e", "DISPLAY=${localEnv:DISPLAY}"
+	],
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {}
+	},
+	"remoteUser": "vscode",
+	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
+	"mounts": [
+		"source=glee-bashhistory,target=/commandhistory,type=volume"
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"ms-python.python",
+				"ms-python.black-formatter",
+				"ms-toolsai.jupyter",
+				"ms-python.vscode-pylance"
+			],
+			"settings": {
+				"[python]": {
+					"editor.formatOnSave": false,
+					"editor.defaultFormatter": "ms-python.black-formatter"
+				},
+				"dev.containers.copyGitConfig": true,
+				"python.defaultInterpreterPath": "/usr/bin/python3",
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/usr/bin/zsh"
+					}
+				}
+			}
+		}
+	}
+}
