@@ -18,7 +18,7 @@ RUN apt-get update && apt-get -y upgrade \
         sudo curl wget gnupg2 lsb-release software-properties-common \
         ssh git git-lfs jq ffmpeg dkms build-essential libxcb-xinerama0 \
         libqt5gui5 libx11-xcb-dev libglu1-mesa-dev libxrender-dev \
-        libxi-dev libxkbcommon-dev libxkbcommon-x11-dev \
+        libxi-dev libxkbcommon-dev libxkbcommon-x11-dev ninja-build \
     && rm -rf /var/lib/apt/lists/*
 
 ARG USERNAME=vscode
@@ -35,10 +35,10 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.10 100
     apt install -y python3-pip && \
     python -m pip install pip --upgrade && \
     pip install pre-commit==3.0.2 packaging jupyter ipywidgets setuptools==58.2.0 && \
-    pip install torch==2.1.2 torchvision==0.16.2 -f https://download.pytorch.org/whl/cu118/torch_stable.html && \
+    pip install xformers==0.0.25.post1 torch==2.2.2 torchvision==0.17.2 -f https://download.pytorch.org/whl/cu118/torch_stable.html && \
     # pip install git+https://github.com/facebookresearch/detectron2.git
-    pip install gradio==4.11.0 transformers==4.36.0 timm opencv-python shapely==1.7.1 && \
-    pip install Pillow==9.1.1 lvis scipy fairscale xformers einops ftfy tensorboard cython
+    pip install gradio==4.11.0 transformers==4.36.0 timm opencv-python shapely==1.8.5.post1 && \
+    pip install Pillow==9.1.1 lvis scipy fairscale einops ftfy tensorboard cython
 
 ENV LD_LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/torch/lib:$LD_LIBRARY_PATH
 
